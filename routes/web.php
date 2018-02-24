@@ -14,3 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+
+Route::get('/console', 'Admin\ConsoleController@index');
+
+Route::get('/home', 'HomeController@index')->name('home');

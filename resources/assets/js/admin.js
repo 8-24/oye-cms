@@ -13,4 +13,4 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-require('./app/components/App');
+require('./admin/components/Console');
