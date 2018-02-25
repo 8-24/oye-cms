@@ -4,13 +4,12 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 import Home from './Home';
 import Languages from './Lang/Languages';
-
 export default class Console extends Component {
   render() {
     return (
       <Router>
         <div className="ui grid">
-          <div  class="ui three column ">
+          <div  class="ui vertical inverted sticky menu fixed top">
             <nav>
               <div className="ui vertical menu">
                 <Link to="/console" className="item">
@@ -29,10 +28,11 @@ export default class Console extends Component {
                   Settings
                   <i class="settings icon"></i>
                 </Link>
+
               </div>
             </nav>
           </div>
-          <div className="ui container">
+          <div className="article">
             <Route exact path="/console" component={Home} />
             <Route path="/console/lang" component={Languages} />
           </div>
