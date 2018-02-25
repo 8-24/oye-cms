@@ -8,6 +8,7 @@
     </head>
     <body class="">
     <div id="console"></div>
+    <textarea id="flex-tinymce" name="textarea" id="" cols="30" rows="10" class="my-editor" style="display:none;"></textarea>
     <script src="{{ asset('admin/assets/js/admin.js') }}"></script>
     <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.min.js') }}"></script>
     <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
