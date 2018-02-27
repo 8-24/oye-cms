@@ -1,20 +1,14 @@
-
-// Fonts
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+#loader {
+  display: none; }
 
-// Variables
-@import "variables";
-
-#loader{
-  display: none;
-}
-
-#loader.loading{
+#loader.loading {
   display: block;
   position: fixed;
   left: 0px;
-  top:0px;
+  top: 0px;
   z-index: 10;
   width: 100vw;
-  height: 100vh;
-}
+  height: 100vh; }
+
+/*# sourceMappingURL=app.css.map */

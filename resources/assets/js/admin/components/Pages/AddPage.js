@@ -13,12 +13,10 @@ export default class AddPage extends Component {
   }
   handleWysiwig(value){
     this.setState({content: value});
-    alert(value);
-    console.log('parent value :', value);
   }
   render() {
     return (
-      <div className="">
+      <div className="container">
         <h1>Ajouter une page</h1>
         <div id="tinymce-wrap">
           <form>

@@ -18,12 +18,11 @@ export default class Wysiwig extends Component {
   render() {
     return (
       <div className="">
-        <h1>Ajouter une page</h1>
         <div id="tinymce-wrap">
           <Editor ref='wysiwig'
             onChange={this.handleEditorChange}
             apiKey="qtri2f49tzmlptff16epgr0rrs2f3oct0fjtrszg64hembeo"
-            initialValue="Hello World"
+            initialValue="oye! captain!"
             init={{
               path_absolute: "/",
               plugins: [

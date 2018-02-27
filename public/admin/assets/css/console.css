@@ -1,4 +1,21 @@
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);.ui.container {
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);body {
+  margin: 0px;
+  padding: 0px;
+}
+
+.ui.container {
   padding-top: 2rem !important;
+}
+
+.oye-grey-bg {
+  width: 100%;
+  min-height: 100vh;
+  background: url("/admin/assets/img/fond_desk_content_cprs.jpeg");
+}
+
+.oye-login-form {
+  width: 80%;
+  margin: 10%;
+  text-align: center;
 }
 

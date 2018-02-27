@@ -11,10 +11,11 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
+    <link rel="stylesheet" href="{{ asset('admin/assets/css/console.css') }}">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
+    <div id="app" class="oye-grey-bg">
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
@@ -70,11 +71,9 @@
                 </div>
             </div>
         </nav>
-
         @yield('content')
     </div>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

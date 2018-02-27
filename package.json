@@ -22,8 +22,6 @@
     },
     "dependencies": {
         "@tinymce/tinymce-react": "^2.2.0",
-        "react-router-dom": "^4.2.2",
-        "semantic-ui-form": "^2.3.0",
-        "semantic-ui-react": "^0.78.2"
+        "react-router-dom": "^4.2.2"
     }
 }
