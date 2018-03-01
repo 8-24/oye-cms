@@ -1,40 +1,5 @@
 import React, { Component } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
-
-var editor_config = {
-  path_absolute : "/",
-  selector: "textarea.my-editor",
-  plugins: [
-    "advlist autolink lists link image charmap print preview hr anchor pagebreak",
-    "searchreplace wordcount visualblocks visualchars code fullscreen",
-    "insertdatetime media nonbreaking save table contextmenu directionality",
-    "emoticons template paste textcolor colorpicker textpattern"
-  ],
-  toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
-  relative_urls: false,
-  file_browser_callback : function(field_name, url, type, win) {
-    var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
-    var y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight;
-
-    var cmsURL = editor_config.path_absolute + 'laravel-filemanager?field_name=' + field_name;
-    if (type == 'image') {
-      cmsURL = cmsURL + "&type=Images";
-    } else {
-      cmsURL = cmsURL + "&type=Files";
-    }
-
-    tinyMCE.activeEditor.windowManager.open({
-      file : cmsURL,
-      title : 'Filemanager',
-      width : x * 0.8,
-      height : y * 0.8,
-      resizable : "yes",
-      close_previous : "no"
-    });
-  }
-};
-
-
 export default class Languages extends Component {
   constructor(props){
     super(props);
@@ -43,24 +8,117 @@ export default class Languages extends Component {
     }
 
   }
-
-  componentDidMount(){
-    axios.get('/api/languages')
-      .then(response => {
-        console.log(response.data);
-        this.setState({languages: response.data})
-      }).catch(error => {
-
-    });
+  componentDidMount()
+  {
+    this.updateState().bind(this);
   }
 
+  updateState()
+  {
+    axios.get('/api/languages')
+      .then(response => {
+        this.setState({languages: response.data});
+      }).catch(error => {
+        //console.log(error);
+    });
+  }
+  storeLanguage()
+  {
+    let self = this;
+    let name = this.name.value;
+    let slug = this.slug.value;
+    let active = this.active.value;
+    axios.post('/api/languages', {
+      name: name,
+      slug: slug,
+      active: active
+    }).then(function(response){
+        self.setState({languages: response.data});
+    }).catch(function(error){
+        console.log("error");
+    });
+  }
+  updateLanguage(){
+    let self = this;
+    let id = this.id.value;
+    let name = this.name.value;
+    let slug = this.slug.value;
+    let active = (this.active.checked) ? true : false;
+    axios.put('/api/languages/'+id, {
+      id: id,
+      name: name,
+      slug: slug,
+      active: active
+      }
+    ).then((response) => {
+      alert("updated");
+    }).catch((error) => {
+      alert("not updated");
+    });
+
+  }
+  destroyLanguage(){
+    let self = this;
+    let id = this.id.value;
+    axios.delete('/api/languages/' + id).then(function(response){
+        self.setState({languages: response.data});
+    }).catch(function(error){
+        console.log('error');
+    });
+  }
+  createForm()
+  {
+    let data = this.state.languages;
+    let newLang = {name: 'langue', slug: 'ln', active: 0, id: -1};
+    data.push(newLang);
+    this.setState({languages: data});
+  }
+  renderFormButton(id)
+  {
+    if(id != -1){
+        return(<button id={id} onClick={this.updateLanguage.bind(this)}>mettre à jour</button>);
+    }else{
+        return(<button id={id} onClick={this.storeLanguage.bind(this)}>créer</button>)
+    }
+  }
+  renderFormDelete(id){
+      return (<button id={'delete-'+id} onClick={this.destroyLanguage.bind(this)}>Supprimer</button>)
+  }
+  handleCheckBox(e){
+    let thisId = e.target.getAttribute('data-id');
+    let thisObject = this.state.languages.filter(item => item.id == thisId);
+    let updatedObject = {
+      name: thisObject[0].name,
+      slug: thisObject[0].slug,
+      id: thisObject[0].id,
+      active: (thisObject[0].active == 0) ? 1 : 0,
+      created_at: thisObject[0].created_at,
+      updated_at: thisObject[0].updated_at
+    };
+    let newObject = this.state.languages.filter(item => item.id != thisId); // objects without this
+    Object.assign(newObject, updatedObject);
+    newObject.push(updatedObject);
+    this.setState({languages: newObject});
+  }
   languagesList(){
     let items = this.state.languages.map((item) => {
-      return <tr class="active title" key={item.id}>
-        <td><input type="text" value={item.name} /></td>
-        <td><input type="text" value={item.slug} /></td>
-        <td><input type="checkbox" />{item.active}</td>
-        <td><button>sauvegarder</button></td>
+      return <tr id={'language-form-'+item.id} className="active title" defaultValue={item.id} >
+          <input type="hidden" name="id" defaultValue={item.id} ref={(id) => this.id = id} />
+        <td>
+          <input id={'language-form-name-'+item.id} type="text" name="name" defaultValue={item.name} ref={(name) => this.name = name}/>
+        </td>
+        <td>
+          <input id={'language-form-slug-'+item.id} type="text" name="slug" defaultValue={item.slug} ref={(slug) => this.slug = slug}/>
+        </td>
+        <td>
+          <input id={'language-form-active-'+item.id} data-id={item.id} type="checkbox" name="active" defaultChecked={item.active} onChange={this.handleCheckBox.bind(this)} ref={(active) => this.active = active}/>
+        </td>
+        <td>
+          {this.renderFormButton(item.id)}
+        </td>
+        <td>
+          {this.renderFormDelete(item.id)}
+        </td>
       </tr>
     });
     return items;
@@ -69,17 +127,19 @@ export default class Languages extends Component {
     return (
       <div className="container">
         <h1>Langues</h1>
-        <table class="table twelve columns">
+        <table className="table twelve columns">
           <thead>
             <tr>
               <th>langue</th>
               <th>abrev.</th>
               <th>status</th>
               <th>sauvegarder</th>
+              <th>supprimer</th>
             </tr>
           </thead>
           <tbody>
             {this.languagesList()}
+            <button onClick={this.createForm.bind(this)}>+</button>
           </tbody>
           <tfoot>
           </tfoot>

@@ -4,17 +4,18 @@ import {GetCurrentLang} from '../Logic/LanguageManager';
 export default class Welcome extends Component {
   constructor(props){
     super(props);
-    this.state = {pageLoading: true}
+
+
   }
-  componentDidMount(){
-      let lang = GetCurrentLang();
-      this.props.history.push('/'+lang);
-      document.getElementById('loader').classList.remove('loading');
+  componentDidMount()
+  {
+    let lang = window.navigator.language;
+    let langAbrev = lang.split('-');
+    let abreviation = langAbrev[0];
+    this.props.history.push('/'+abreviation);
   }
 
-  componentWillMount(){
-    document.getElementById('loader').classList.add('loading');
-  }
+
 
   render() {
     return (

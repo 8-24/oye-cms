@@ -9,7 +9,7 @@ export default class Console extends Component {
     return (
       <Router>
         <div className="ui grid">
-          <div  class="ui vertical inverted sticky menu fixed top">
+          <div  className="ui vertical inverted sticky menu fixed top">
             <nav>
               <div className="ui vertical menu">
                 <Link to="/console" className="item">
@@ -26,7 +26,7 @@ export default class Console extends Component {
                 </Link>
                 <Link to="/console/lang" className="item">
                   Settings
-                  <i class="settings icon"></i>
+                  <i className="settings icon"></i>
                 </Link>
 
               </div>
