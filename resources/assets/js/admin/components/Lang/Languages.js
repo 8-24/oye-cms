@@ -57,14 +57,16 @@ export default class Languages extends Component {
     });
 
   }
-  destroyLanguage(){
-    let self = this;
-    let id = this.id.value;
-    axios.delete('/api/languages/' + id).then(function(response){
+  destroyLanguage(e){
+    if(e.target.disabled == false) {
+      let self = this;
+      let id = this.id.value;
+      axios.delete('/api/languages/' + id).then(function (response) {
         self.setState({languages: response.data});
-    }).catch(function(error){
+      }).catch(function (error) {
         console.log('error');
-    });
+      });
+    }
   }
   createForm()
   {
@@ -82,7 +84,7 @@ export default class Languages extends Component {
     }
   }
   renderFormDelete(id){
-      return (<button id={'delete-'+id} onClick={this.destroyLanguage.bind(this)}>Supprimer</button>)
+      return (<button id={'delete-'+id} onClick={this.destroyLanguage.bind(this)} disabled={id === (-1) ? true : false}>Supprimer</button>)
   }
   handleCheckBox(e){
     let thisId = e.target.getAttribute('data-id');
@@ -100,18 +102,35 @@ export default class Languages extends Component {
     newObject.push(updatedObject);
     this.setState({languages: newObject});
   }
+  handleLangInput(e){
+    let thisId = e.target.getAttribute('data-id');
+    let name = this.name.value;
+    let slug = this.slug.value;
+    alert(name);
+    alert(slug);
+    if(slug.length != 2){
+      document.getElementById('language-form-slug-' + thisId).classList.add('warning');
+    }else{
+      document.getElementById('language-form-slug-' + thisId).classList.remove('warning');
+    }
+    if(name < 2 && name > 255){
+      document.getElementById('language-form-name-' + thisId).classList.add('warning');
+    }else{
+      document.getElementById('language-form-name-' + thisId).classList.remove('warning');
+    }
+  }
   languagesList(){
     let items = this.state.languages.map((item) => {
       return <tr id={'language-form-'+item.id} className="active title" defaultValue={item.id} >
           <input type="hidden" name="id" defaultValue={item.id} ref={(id) => this.id = id} />
         <td>
-          <input id={'language-form-name-'+item.id} type="text" name="name" defaultValue={item.name} ref={(name) => this.name = name}/>
+          <input id={'language-form-name-'+item.id} className="u-full-width" data-id={item.id} type="text" name="name" defaultValue={item.name} ref={(name) => this.name = name}/>
         </td>
         <td>
-          <input id={'language-form-slug-'+item.id} type="text" name="slug" defaultValue={item.slug} ref={(slug) => this.slug = slug}/>
+          <input id={'language-form-slug-'+item.id} className="u-full-width" data-id={item.id} type="text" name="slug" defaultValue={item.slug} ref={(slug) => this.slug = slug} onChange={this.handleLangInput}/>
         </td>
         <td>
-          <input id={'language-form-active-'+item.id} data-id={item.id} type="checkbox" name="active" defaultChecked={item.active} onChange={this.handleCheckBox.bind(this)} ref={(active) => this.active = active}/>
+          <input id={'language-form-active-'+item.id} className="u-full-width" data-id={item.id} type="checkbox" name="active" defaultChecked={item.active} onChange={this.handleCheckBox.bind(this)} ref={(active) => this.active = active}/>
         </td>
         <td>
           {this.renderFormButton(item.id)}
@@ -123,6 +142,7 @@ export default class Languages extends Component {
     });
     return items;
   }
+
   render() {
     return (
       <div className="container">

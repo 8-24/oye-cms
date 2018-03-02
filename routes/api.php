@@ -18,3 +18,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::apiResources(["languages" => 'API\Languages\LanguagesController']);
+Route::apiResources(["services" => 'API\Services\ServicesController']);

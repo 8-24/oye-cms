@@ -31,5 +31,15 @@ class LanguagesSeeder extends Seeder
             'slug' => 'de',
             'active' => false,
         ]);
+        DB::table('languages')->insert([
+            'name' => 'espagnole',
+            'slug' => 'es',
+            'active' => false,
+        ]);
+        DB::table('languages')->insert([
+            'name' => 'japonais',
+            'slug' => 'ja',
+            'active' => false,
+        ]);
     }
 }

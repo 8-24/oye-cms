@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\API\Languages;
+namespace App\Http\Controllers\API\Services;
 
-use Illuminate\Validation\Validator;
-use App\Language;
+use App\Services;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
-class LanguagesController extends Controller
+class ServicesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,13 +14,8 @@ class LanguagesController extends Controller
      */
     public function index()
     {
-        $items = Language::all();
-        if( !empty($items) ){
-            return response()->json($items, 200);
-        }else{
-            return response()->json("Languages not found", 404);
-        }
-
+        $data = Services::all();
+        return response()->json($data, 200);
     }
 
     /**
@@ -43,16 +36,7 @@ class LanguagesController extends Controller
      */
     public function store(Request $request)
     {
-            $name = $request['name'];
-            $slug = $request['slug'];
-            $active = $request['active'] == 'on' ? true: false;
-            $newItem = new Language();
-            $newItem->name = $name;
-            $newItem->slug = $slug;
-            $newItem->active = $active;
-            $newItem->save();
-            $data = Language::all();
-            return response()->json($data, 200);
+        //
     }
 
     /**
@@ -86,16 +70,7 @@ class LanguagesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $id = $id;
-        $name = $request['name'];
-        $slug = $request['slug'];
-        $active = $request['active'];
-        Language::where('id', $id)->update([
-           'name' => $name,
-            'slug' => $slug,
-            'active' => $active
-        ]);
-        return response()->json('updated', 200);
+        //
     }
 
     /**
@@ -106,9 +81,6 @@ class LanguagesController extends Controller
      */
     public function destroy($id)
     {
-        $item = Language::where('id', $id)->first();
-        $item->delete();
-        $data = Language::all();
-        return response()->json($data, 200);
+        //
     }
 }

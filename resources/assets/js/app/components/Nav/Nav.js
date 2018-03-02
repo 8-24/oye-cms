@@ -25,7 +25,7 @@ export default class Nav extends Component {
     // list availables languages
     var languages = this.state.langList.map((item) =>
     {
-      if(item.active === 1)
+      (item.active === 1)
       {
         return <Link key={item.id} to={item.slug}>{item.name}</Link>
       }
