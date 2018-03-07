@@ -18,16 +18,6 @@ export default class Services extends Component {
       this.setState({currentContent: currentContent});
   }
 
-  componentDidUpdate(){
-      let currentLang = this.props.match.params.lang;
-      let currentContent = this.state.data.find((item) => {
-        if(item.lang == currentLang){
-            return item;
-        }
-      });
-      this.setState({currentContent: currentContent});
-  }
-
 
   render() {
     return (

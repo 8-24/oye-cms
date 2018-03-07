@@ -17,8 +17,9 @@ class CreateServicesTable extends Migration
             $table->increments('id');
             $table->integer('position');
             $table->string('name');
-            $table->string('slug')->unique();
+            $table->string('slug');
             $table->integer('lang_id');
+            $table->string('lang_slug');
             $table->string('thumbnail');
             $table->string('illustration'); // image on the right
             $table->string('keywords');

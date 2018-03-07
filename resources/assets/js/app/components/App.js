@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Welcome from './Welcome';
-import Services from './Services';
+import Service from './Services/Service';
 import Nav from './Nav/Nav';
 export default class App extends Component {
     constructor(props){
@@ -19,7 +19,7 @@ export default class App extends Component {
                   <main>
                       <Route exact path="/" component={Welcome} />
                       <Route exact path="/:lang/" component={Welcome} />
-                      <Route exact path="/:lang/services" component={Services} />
+                      <Route exact path="/:lang/services/:slug" component={Service} />
                   </main>
               </div>
           </Router>

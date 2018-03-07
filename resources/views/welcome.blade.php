@@ -13,6 +13,8 @@
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
         <!-- Styles -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+        <link rel="stylesheet" href="{{ asset('app/assets/css/app.css') }}">
 
     </head>
     <body>

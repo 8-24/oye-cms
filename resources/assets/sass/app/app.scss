@@ -18,3 +18,37 @@
   width: 100vw;
   height: 100vh;
 }
+
+/*Home First Section*/
+#home-first-section{
+  width: 100%;
+  height: 80vh;
+  background-color: rgb(2, 30, 84);
+  color: white;
+}
+/*SERVICES */
+.service-thumbnail{
+  width: 60%;
+  margin-left: 20%;
+  margin-right: 20%;
+  margin-top: 5%;
+  border-radius: 50%;
+}
+.service-thumbnail img{
+  width: 100%;
+  height: auto;
+}
+.services-preview{
+  width: 90%;
+  padding: 5%;
+  max-height: 300px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  border-radius: 5px;
+}
+.service-page-link{
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 50px;
+  background-color: rgb(18, 104, 245);
+  color: white;
+}

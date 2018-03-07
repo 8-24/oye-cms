@@ -1,36 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\API\Services;
+namespace App\Http\Controllers\API\Home;
 
+use App\Home;
 use App\Language;
-use App\Services;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-class ServicesController extends Controller
+
+class HomeController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *@param  string  $lang
+     *
      * @return \Illuminate\Http\Response
      */
-
-    public function indexPerLang($lang){
-        $lang = Language::where('slug', $lang)->first();
-        $data = Services::where('lang_id', $lang->id)->get();
-        return response()->json($data, 200);
-
-    }
-    /**
-     * Display a listing of the resource.
-     *@param  integer  $id
-     * @return \Illuminate\Http\Response
-     */
-
-
     public function index()
     {
-        $data = Services::all();
-        return response()->json($data, 200);
+        //
     }
 
     /**
@@ -57,12 +43,13 @@ class ServicesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  string  $slug
+     * @param  string  $lang
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show($lang)
     {
-        $data = Services::where('slug', $slug)->first();
+        $currentLang = Language::where('slug', $lang)->first();
+        $data = Home::where('lang_id', $currentLang->id)->first();
         return response()->json($data, 200);
     }
 
