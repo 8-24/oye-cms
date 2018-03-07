@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {GetCurrentLang} from '../Logic/LanguageManager';
 import ServicesLinks from './Services/ServicesLinks';
+import Arguments from './Arguments/Arguments';
 export default class Welcome extends Component {
   constructor(props){
     super(props);
@@ -35,6 +36,7 @@ export default class Welcome extends Component {
           </div>
         </div>
         <ServicesLinks display={"full"} lang={this.state.currentLang} hiddenHimself={false} />
+        <Arguments lang={this.state.currentLang} />
         <ServicesLinks display={"mini"} lang={this.state.currentLang} hiddenHimself={false} />
       </div>
 

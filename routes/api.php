@@ -20,3 +20,4 @@ Route::apiResources(["homes" => 'API\Home\HomeController']);
 Route::apiResources(["languages" => 'API\Languages\LanguagesController']);
 Route::apiResources(["services" => 'API\Services\ServicesController']);
 Route::get('/services/lang/{lang}' ,  'API\Services\ServicesController@IndexPerLang');
+Route::apiResources(["arguments" => 'API\Arguments\ArgumentsController']);

@@ -20,8 +20,8 @@ export default class Service extends Component {
   componentWillReceiveProps(){
     let currentLang = this.props.match.params.lang;
     let slug = this.props.match.params.slug;
-    this.setState({service:{}, currentLang: ''});
     axios.get('/api/services/'+slug).then((response) => {
+      console.log(response.data);
       this.setState({service: response.data, currentLang: currentLang});
     }).catch((error) => {
       alert(error);

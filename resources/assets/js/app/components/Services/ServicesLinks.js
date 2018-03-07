@@ -62,9 +62,11 @@ export default class ServicesLinks extends Component {
   render() {
     return (
         <div id="services-list" className="container">
+          <div className="row">
             <h2>Services</h2>
-          <div className="services-links twelve columns">
+            <div className="services-links twelve columns">
             {(this.props.display == 'full') ? this.ListFull() : this.ListMini() }
+          </div>
           </div>
         </div>
     );
