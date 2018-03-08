@@ -58223,11 +58223,6 @@ var ServicesLinks = function (_Component) {
           'div',
           { className: 'row' },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'h2',
-            null,
-            'Services'
-          ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             { className: 'services-links twelve columns' },
             this.props.display == 'full' ? this.ListFull() : this.ListMini()
@@ -58469,7 +58464,7 @@ var Arguments = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (Arguments.__proto__ || Object.getPrototypeOf(Arguments)).call(this, props));
 
-    _this.state = { arguments: [], currentLang: '' };
+    _this.state = { args: [], currentLang: '' };
     return _this;
   }
 
@@ -58479,7 +58474,7 @@ var Arguments = function (_Component) {
       var _this2 = this;
 
       axios.get('/api/arguments/').then(function (response) {
-        _this2.setState({ arguments: response.data });
+        _this2.setState({ args: response.data });
       }).catch(function (error) {
         console.log(error);
       });
@@ -58492,21 +58487,30 @@ var Arguments = function (_Component) {
     value: function ListArguments() {
       var _this3 = this;
 
-      var items = this.state.arguments.map(function (item) {
-        var buttonCTA = null;
-        buttonCTA = item.button ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Link */],
-          { alt: item.CTA, to: '/' + _this3.props.lang + '/services/' + item.button_link },
-          item.CTA
-        ) : null;
-        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'div',
-          { key: item.id, className: 'argument' },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { dangerouslySetInnerHTML: { __html: item.content } }),
-          buttonCTA
-        );
+      var currentLang = this.props.lang;
+      var args = this.state.args.map(function (arg) {
+        var contents = arg.contents.map(function (item) {
+          console.table(item);
+          if (item.lang_slug === _this3.props.lang) {
+            if (item.lang_slug == currentLang) {
+              var buttonCTA = null;
+              buttonCTA = item.button ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Link */],
+                { alt: item.CTA, to: '/' + _this3.props.lang + '/services/' + item.button_link },
+                item.CTA
+              ) : null;
+              return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { key: item.id, className: 'argument' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { dangerouslySetInnerHTML: { __html: item.content } }),
+                buttonCTA
+              );
+            } else {}
+          }
+        });
+        return contents;
       });
-      return items;
+      return args;
     }
   }, {
     key: 'render',
@@ -58514,6 +58518,7 @@ var Arguments = function (_Component) {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         { className: 'container' },
+        'arguments',
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'div',
           { id: 'arguments-list' },

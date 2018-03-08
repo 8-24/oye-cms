@@ -4,12 +4,12 @@ export default class Arguments extends Component {
 
   constructor(props){
     super(props);
-    this.state = {arguments: [], currentLang: ''}
+    this.state = {args: [], currentLang: ''}
   }
 
   componentDidMount(){
     axios.get('/api/arguments/').then((response) => {
-      this.setState({arguments: response.data});
+      this.setState({args: response.data});
     }).catch((error) => {
       console.log(error);
     })
@@ -19,21 +19,39 @@ export default class Arguments extends Component {
 
   }
 
-  ListArguments(){
-    let items = this.state.arguments.map((item) => {
-      let buttonCTA = null;
-      buttonCTA = (item.button) ? <Link alt={item.CTA} to={'/' + this.props.lang + '/services/' + item.button_link}>{item.CTA}</Link> : null;
-      return <div key={item.id} className="argument">
-        <div dangerouslySetInnerHTML={{__html: item.content}}></div>
-        {buttonCTA}
-      </div>
+  ListArguments()
+  {
+
+    let currentLang = this.props.lang;
+    let args = this.state.args.map( (arg) =>
+    {
+        let contents = arg.contents.map((item) =>
+        {
+            console.table(item);
+          if(item.lang_slug === this.props.lang){
+            if(item.lang_slug == currentLang){
+              let buttonCTA = null;
+              buttonCTA = (item.button) ? <Link alt={item.CTA} to={'/' + this.props.lang + '/services/' + item.button_link}>{item.CTA}</Link> : null;
+              return <div key={item.id} className="argument">
+                <div dangerouslySetInnerHTML={{__html: item.content}}></div>
+                {buttonCTA}
+              </div>
+            }else
+            {
+
+            }
+          }
+        });
+        return contents;
     });
-    return items;
+    return args;
+
   }
 
   render() {
     return (
       <div  className="container">
+        arguments
         <div id="arguments-list">
           {this.ListArguments()}
         </div>
