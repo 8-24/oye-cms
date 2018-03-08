@@ -11,57 +11,25 @@ class ArgumentSeeder extends Seeder
      */
     public function run()
     {
-
-        DB::table('arguments')->insert([
-            'lang_id' => 1,
-            'slug' => 'block_1',
+        \App\Arguments::insert([
+            'active' => true,
             'position' => 1,
-            'lang_id' => 1,
-            'lang_slug' => 'fr',
-            'content' => '<ul><li>argument 1</li><li>argument 2</li><li>argument 3</li></ul>',
-            'button' => false,
-            'button_link'=> null,
-            'CTA' => null,
-
+            'complete' => true,
         ]);
-
-        DB::table('arguments')->insert([
-            'lang_id' => 1,
-            'slug' => 'block_2',
-            'position' => 1,
-            'lang_id' => 1,
-            'lang_slug' => 'fr',
-            'content' => '<ul><li>argument 1</li><li>argument 2</li><li>argument 3</li></ul>',
-            'button' => false,
-            'button_link'=> null,
-            'CTA' => null,
-
+        \App\Arguments::insert([
+            'active' => true,
+            'position' => 2,
+            'complete' => true,
         ]);
-
-        DB::table('arguments')->insert([
-            'lang_id' => 1,
-            'slug' => 'block_3',
-            'position' => 1,
-            'lang_id' => 1,
-            'lang_slug' => 'fr',
-            'content' => '<ul><li>argument 1</li><li>argument 2</li><li>argument 3</li></ul>',
-            'button' => false,
-            'button_link'=> null,
-            'CTA' => null,
-
+        \App\Arguments::insert([
+            'active' => true,
+            'position' => 3,
+            'complete' => true,
         ]);
-
-        DB::table('arguments')->insert([
-            'lang_id' => 1,
-            'slug' => 'block_4',
-            'position' => 1,
-            'lang_id' => 1,
-            'lang_slug' => 'fr',
-            'content' => '<ul><li>argument 1</li><li>argument 2</li><li>argument 3</li></ul>',
-            'button' => true,
-            'button_link'=> 'gestion-de-projet',
-            'CTA' => "Gestion de projet",
-
+        \App\Arguments::insert([
+            'active' => true,
+            'position' => 4,
+            'complete' => true,
         ]);
     }
 }

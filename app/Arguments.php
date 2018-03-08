@@ -4,12 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Services extends Model
+class Arguments extends Model
 {
     public function contents()
     {
-        return $this->hasMany(Servicecontents::class);
+        return $this->hasMany(Argumentcontents::class);
     }
-
-
 }

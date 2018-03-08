@@ -13,7 +13,9 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(LanguagesSeeder::class);
         $this->call(ServicesSeeder::class);
+        $this->call(ServiceContentSeeder::class);
         $this->call(HomeSeeder::class);
         $this->call(ArgumentSeeder::class);
+        $this->call(ArgumentContentSeeder::class);
     }
 }

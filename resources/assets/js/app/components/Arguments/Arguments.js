@@ -22,9 +22,9 @@ export default class Arguments extends Component {
   ListArguments(){
     let items = this.state.arguments.map((item) => {
       let buttonCTA = null;
-      buttonCTA = (item.button) ? <Link to={'/' + this.props.lang + '/services/' + item.button_link}>{item.CTA}</Link> : null;
-      return <div key={item.id}>
-        {item.content}
+      buttonCTA = (item.button) ? <Link alt={item.CTA} to={'/' + this.props.lang + '/services/' + item.button_link}>{item.CTA}</Link> : null;
+      return <div key={item.id} className="argument">
+        <div dangerouslySetInnerHTML={{__html: item.content}}></div>
         {buttonCTA}
       </div>
     });
@@ -34,7 +34,6 @@ export default class Arguments extends Component {
   render() {
     return (
       <div  className="container">
-        Arguments
         <div id="arguments-list">
           {this.ListArguments()}
         </div>

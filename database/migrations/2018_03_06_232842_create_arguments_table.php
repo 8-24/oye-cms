@@ -15,14 +15,9 @@ class CreateArgumentsTable extends Migration
     {
         Schema::create('arguments', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('slug');
-            $table->integer('lang_id');
-            $table->string('lang_slug');
+            $table->boolean('active');
             $table->integer('position');
-            $table->longText('content');
-            $table->boolean('button');
-            $table->string('button_link')->nullable();
-            $table->string('CTA')->nullable();
+            $table->boolean('complete');  // complete if translated in all available languages
             $table->timestamps();
         });
     }

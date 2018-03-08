@@ -4,6 +4,10 @@
 
 // Variables
 @import "variables";
+// Arguments
+@import "arguments";
+// Sercices
+@import "service";
 
 #loader{
   display: none;
@@ -27,28 +31,3 @@
   color: white;
 }
 /*SERVICES */
-.service-thumbnail{
-  width: 60%;
-  margin-left: 20%;
-  margin-right: 20%;
-  margin-top: 5%;
-  border-radius: 50%;
-}
-.service-thumbnail img{
-  width: 100%;
-  height: auto;
-}
-.services-preview{
-  width: 90%;
-  padding: 5%;
-  max-height: 300px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-  border-radius: 5px;
-}
-.service-page-link{
-  padding-left: 20px;
-  padding-right: 20px;
-  height: 50px;
-  background-color: rgb(18, 104, 245);
-  color: white;
-}

@@ -15,17 +15,9 @@ class CreateServicesTable extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->increments('id');
+            $table->boolean('active');
             $table->integer('position');
-            $table->string('name');
-            $table->string('slug');
-            $table->integer('lang_id');
-            $table->string('lang_slug');
-            $table->string('thumbnail');
-            $table->string('illustration'); // image on the right
-            $table->string('keywords');
-            $table->string('description');
-            $table->text('arguments');
-            $table->longText('content');
+            $table->boolean('complete');  // complete if translated in all available languages
             $table->timestamps();
         });
     }

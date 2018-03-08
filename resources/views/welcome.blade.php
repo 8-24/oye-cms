@@ -18,6 +18,7 @@
 
     </head>
     <body>
+    <!--
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
@@ -30,6 +31,7 @@
                 </div>
             @endif
         </div>
+    -->
         <div id="loader"></div>
         <div id="application"></div>
         <script src="{{ asset('app/assets/js/app.js') }}"></script>

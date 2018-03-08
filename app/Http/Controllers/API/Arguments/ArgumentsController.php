@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers\API\Arguments;
 
-use App\Argument;
+use App\Arguments;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -14,7 +14,7 @@ class ArgumentsController extends Controller
      */
     public function index()
     {
-        $data = Argument::all();
+        $data = Arguments::orderBy('position', 'ASC')->with('contents')->get();
         return response()->json($data, 200);
     }
 

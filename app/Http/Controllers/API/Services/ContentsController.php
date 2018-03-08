@@ -2,36 +2,20 @@
 
 namespace App\Http\Controllers\API\Services;
 
-use App\Language;
+use App\Argumentcontents;
 use App\Servicecontents;
-use App\Services;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-class ServicesController extends Controller
+class ContentsController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *@param  string  $lang
+     *
      * @return \Illuminate\Http\Response
      */
-
-    public function indexPerLang($lang){
-        $lang = Language::where('slug', $lang)->first();
-        $data = Services::where('lang_id', $lang->id)->get();
-        return response()->json($data, 200);
-
-    }
-    /**
-     * Display a listing of the resource.
-     *@param  integer  $id
-     * @return \Illuminate\Http\Response
-     */
-
-
     public function index()
     {
-        $data = Services::orderBy('position', 'ASC')->with('contents')->get();
-        return response()->json($data, 200);
+        $data = Argumentcontents::all();
     }
 
     /**
@@ -41,7 +25,7 @@ class ServicesController extends Controller
      */
     public function create()
     {
-        //TODO: check if slug is duplicata | unique slug
+        //
     }
 
     /**
@@ -59,11 +43,12 @@ class ServicesController extends Controller
      * Display the specified resource.
      *
      * @param  string  $slug
+     * @param  string  $lang
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        $data = Services::find($id)->contents;
+        $data = Servicecontents::where('slug', $slug)->first();
         return response()->json($data, 200);
     }
 

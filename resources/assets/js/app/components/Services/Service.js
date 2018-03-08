@@ -10,7 +10,7 @@ export default class Service extends Component {
   componentDidMount(){
     let currentLang = this.props.match.params.lang;
     let slug = this.props.match.params.slug;
-    axios.get('/api/services/'+slug).then((response) => {
+    axios.get('/api/servicecontents/'+slug).then((response) => {
       this.setState({service: response.data, currentLang: currentLang});
     }).catch((error) => {
       alert(error);
@@ -20,7 +20,7 @@ export default class Service extends Component {
   componentWillReceiveProps(){
     let currentLang = this.props.match.params.lang;
     let slug = this.props.match.params.slug;
-    axios.get('/api/services/'+slug).then((response) => {
+    axios.get('/api/servicecontents/'+slug).then((response) => {
       console.log(response.data);
       this.setState({service: response.data, currentLang: currentLang});
     }).catch((error) => {

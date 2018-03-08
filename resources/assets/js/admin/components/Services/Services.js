@@ -27,6 +27,7 @@ export default class Services extends Component {
         <input type="text" value={item.description} />
         <input type="text" value={item.arguments} />
         <input type="text" value={item.content} />
+        <Link to={'/console/services/' + item.slug}>{item.name}</Link>
       </div>)
     });
     return services;

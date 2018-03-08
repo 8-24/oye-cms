@@ -17,10 +17,14 @@ export default class Nav extends Component {
       this.setState({currentLang: 'en', langList: ['en']});
     });
   }
-  setCurrentLang()
+
+  setLang(e)
   {
-    alert("change lang")
+    let lang = e.target.value;
+    console.log(lang);
+    console.log(this.props);
   }
+
   ListLang(){
     // list availables languages
     var languages = this.state.langList.map((item) =>
@@ -33,13 +37,14 @@ export default class Nav extends Component {
     return languages;
   }
   render() {
+          //{this.ListLang()}
     return (
     <nav>
       <div className="ui vertical menu">
         <div id="languages-list">
-          <Link to="/en/services">en services</Link>
-          <Link to="/fr/services">fr services</Link>
-          {this.ListLang()}
+          <Link to="/">home</Link>
+          <button onClick={this.setLang} value="en">en</button>
+          <button onClick={this.setLang} value="fr">fr</button>
         </div>
       </div>
     </nav>

@@ -16,7 +16,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        //
+        $data = Home::where('id', 1)->first();
+        return response()->json($data, 200);
     }
 
     /**
@@ -73,7 +74,18 @@ class HomeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $mantra = $request->mantra;
+        $description = $request['description'];
+        $keywords = $request['keywords'];
+        $thumbnail = $request['thumbnail'];
+        Home::where('id', $id)->update([
+            'mantra' => $mantra,
+            'description' => $description,
+            'keywords' => $keywords,
+            'thumbnail' => $thumbnail
+        ]);
+
+        return response('section home mis à jour', 200);
     }
 
     /**

@@ -6,6 +6,7 @@ import Home from './Home';
 import Languages from './Lang/Languages';
 import Services from './Services/Services';
 import AddServices from './Services/AddService';
+import Service from './Services/Service';
 export default class Console extends Component {
   render() {
     return (
@@ -38,7 +39,7 @@ export default class Console extends Component {
             <Route exact path="/console" component={Home} />
             <Route path="/console/lang" component={Languages} />
             <Route exact path="/console/services" component={Services} />
-            <Route exact path="/console/services/add" component={AddServices} />
+            <Route exact path="/console/services/:slug" component={Service} />
           </div>
         </div>
       </Router>
