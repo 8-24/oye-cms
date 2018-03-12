@@ -14,15 +14,19 @@ export default class Welcome extends Component {
   }
   componentDidMount()
   {
+
+    document.getElementById('loader').classList.add('loading');
     let lang = window.navigator.language;
     let langAbrev = lang.split('-');
     let abreviation = langAbrev[0];
     this.props.history.push('/'+abreviation);
+    this.props.history.push({lang: '/'+abreviation});
     axios.get('/api/homes/'+abreviation).then((response) => {
       this.setState({home: response.data, currentLang: abreviation});
     }).catch((error) => {
       alert("error");
     });
+    document.getElementById('loader').classList.remove('loading');
   }
 
 

@@ -27,7 +27,6 @@ export default class Arguments extends Component {
     {
         let contents = arg.contents.map((item) =>
         {
-            console.table(item);
           if(item.lang_slug === this.props.lang){
             if(item.lang_slug == currentLang){
               let buttonCTA = null;
@@ -51,7 +50,6 @@ export default class Arguments extends Component {
   render() {
     return (
       <div  className="container">
-        arguments
         <div id="arguments-list">
           {this.ListArguments()}
         </div>

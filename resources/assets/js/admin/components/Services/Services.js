@@ -16,32 +16,35 @@ export default class Services extends Component {
     });
   }
 
+  ServicesList(data){
+    let servicesData = data.map( (item) => {
+      return <div key={item.id}><span>{item.name}</span></div>
+    });
+    return servicesData;
+  }
+
   ServicesFormList(){
     let services = this.state.services.map((item) => {
-      return(<div id={'services-form-' + item.id}>
-        <input type="text" value={item.name} />
-        <input type="number" value={item.position} />
-        <input type="number" value={item.lang_id} />
-        <input type="text" value={item.thumbnail} />
-        <input type="text" value={item.illustration} />
-        <input type="text" value={item.description} />
-        <input type="text" value={item.arguments} />
-        <input type="text" value={item.content} />
-        <Link to={'/console/services/' + item.slug}>{item.name}</Link>
+      return(<div key={item.id} id={'service-blocks' + item.id}>
+        Service : {item.position}
+        {this.ServicesList(item.contents)}
+        <Link to={'/console/services/' + item.id}>{item.id}</Link>
       </div>)
     });
     return services;
   }
-
   render() {
     return (
+      <div className="container">
         <div id="services-list">
             <h2>Services</h2>
-            <div>
-              {this.ServicesFormList()}
-            </div>
-            <Link to="/console/services/add">Ajouter nouveau service</Link>
+              <div>
+                {this.ServicesFormList()}
+              </div>
+              <Link to="/console/services/add">Ajouter nouveau service</Link>
         </div>
+
+      </div>
     );
   }
 }

@@ -21,8 +21,6 @@ export default class Nav extends Component {
   setLang(e)
   {
     let lang = e.target.value;
-    console.log(lang);
-    console.log(this.props);
   }
 
   ListLang(){

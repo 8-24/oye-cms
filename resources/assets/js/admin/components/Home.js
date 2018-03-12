@@ -63,13 +63,13 @@ export default class Home extends Component {
 
   handleSubmit(e){
       axios.put('/api/homes/' + this.state.homes.id,
-        {
+      {
           id: this.state.homes.id,
           mantra: this.state.homes.mantra,
           description: this.state.homes.description,
           keywords: this.state.homes.keywords,
           thumbnail: this.state.homes.thumbnail,
-        }
+      }
       ).then((response) => {
         alert("home mise à jour");
         console.log(response.data);

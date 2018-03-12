@@ -39,7 +39,7 @@ export default class Console extends Component {
             <Route exact path="/console" component={Home} />
             <Route path="/console/lang" component={Languages} />
             <Route exact path="/console/services" component={Services} />
-            <Route exact path="/console/services/:slug" component={Service} />
+            <Route exact path="/console/services/:id" component={Service} />
           </div>
         </div>
       </Router>
