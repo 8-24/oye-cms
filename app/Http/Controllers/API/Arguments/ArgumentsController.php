@@ -47,7 +47,8 @@ class ArgumentsController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = Arguments::find($id)->contents;
+        return response()->json($data, 200);
     }
 
     /**

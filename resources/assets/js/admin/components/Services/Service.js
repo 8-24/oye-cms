@@ -10,7 +10,6 @@ export default class Service extends Component {
   }
   componentDidMount(){
     let id = this.props.match.params.id;
-
     axios.get('/api/languages').then((response) => {
       this.setState({languages: response.data});
     }).catch((error) => {
@@ -20,13 +19,18 @@ export default class Service extends Component {
     {
       this.setState({service: response.data});
       this.setCurrentLanguage(this.state.currentLanguage);
-      let wordsNb = this.state.currentService.keywords.match(/.*?,/g).length;
-      this.setState({keywordsNb: wordsNb});
+      this.countKeyWords();
     }).catch((error) =>
     {
       console.log(error);
     });
   }
+
+  countKeyWords(){
+    let wordsNb = this.state.currentService.keywords.match(/.*?,/g).length;
+    this.setState({keywordsNb: wordsNb});
+  }
+
   setCurrentLanguage(lang)
   {
     let newService = this.state.service.map( (item) =>
@@ -38,6 +42,7 @@ export default class Service extends Component {
     });
     let service = newService.filter( obj => obj != null);
     this.setState({currentService: service[0]});
+    this.countKeyWords();
   }
 
   ListLanguages()
@@ -58,10 +63,7 @@ export default class Service extends Component {
     let currentLang = lang.split('-');
     currentLang = currentLang[0].replace(' ', '');
     this.setCurrentLanguage(currentLang);
-  }
-  handleForm()
-  {
-    alert("handle form");
+    this.countKeyWords();
   }
 
   ServiceContentsList()
@@ -105,13 +107,13 @@ export default class Service extends Component {
       clone.description = value;
     }
     if(name == 'keywords'){
-      var words = value.match(/.*?,/g).length;
-      if(words <= 9){
+      let nb = value.match(/.*?,/g).length;
+      this.setState({keywordsNb: nb}); // before update keywords length
+      if(nb <= 9){
         e.target.classList.add('warning');
       }else{
         e.target.classList.remove('warning');
       }
-      this.setState({keywordsNb: words});
       clone.keywords = value;
     }
     if(name == 'arguments'){

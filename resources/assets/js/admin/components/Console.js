@@ -5,8 +5,9 @@ import AddPage from './Pages/AddPage';
 import Home from './Home';
 import Languages from './Lang/Languages';
 import Services from './Services/Services';
-import AddServices from './Services/AddService';
 import Service from './Services/Service';
+import Arguments from './Arguments/Arguments';
+import Argument from './Arguments/Argument';
 export default class Console extends Component {
   render() {
     return (
@@ -24,6 +25,9 @@ export default class Console extends Component {
                 <Link to="/console/services" className="item">
                   Services
                 </Link>
+                <Link to="/console/arguments" className="item">
+                  Arguments
+                </Link>
                 <Link to="/console/lang" className="item">
                   Contact
                 </Link>
@@ -31,7 +35,6 @@ export default class Console extends Component {
                   Settings
                   <i className="settings icon"></i>
                 </Link>
-
               </div>
             </nav>
           </div>
@@ -40,6 +43,8 @@ export default class Console extends Component {
             <Route path="/console/lang" component={Languages} />
             <Route exact path="/console/services" component={Services} />
             <Route exact path="/console/services/:id" component={Service} />
+            <Route exact path="/console/arguments" component={Arguments} />
+            <Route exact path="/console/arguments/:id" component={Argument} />
           </div>
         </div>
       </Router>
