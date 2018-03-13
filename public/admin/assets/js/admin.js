@@ -60866,7 +60866,7 @@ var Service = function (_Component) {
     var _this = _possibleConstructorReturn(this, (Service.__proto__ || Object.getPrototypeOf(Service)).call(this, props));
 
     _this.state = {
-      languages: [], service: [], currentService: {}, currentLanguage: 'fr'
+      keywordsNb: 0, languages: [], service: [], currentService: {}, currentLanguage: 'fr'
     };
     return _this;
   }
@@ -60886,6 +60886,8 @@ var Service = function (_Component) {
       axios.get('/api/services/' + id).then(function (response) {
         _this2.setState({ service: response.data });
         _this2.setCurrentLanguage(_this2.state.currentLanguage);
+        var wordsNb = _this2.state.currentService.keywords.match(/.*?,/g).length;
+        _this2.setState({ keywordsNb: wordsNb });
       }).catch(function (error) {
         console.log(error);
       });
@@ -60955,15 +60957,37 @@ var Service = function (_Component) {
       var value = e.target.value;
       var clone = this.state.currentService;
       if (name == 'name') {
+        if (value.length < 3) {
+          e.target.classList.add('warning');
+        } else {
+          e.target.classList.remove('warning');
+        }
         clone.name = value;
       }
       if (name == 'filepath') {
+        if (value.length < 3) {
+          e.target.classList.add('warning');
+        } else {
+          e.target.classList.remove('warning');
+        }
         clone.thumbnail = value;
       }
       if (name == 'description') {
+        if (value.length < 150) {
+          e.target.classList.add('warning');
+        } else {
+          e.target.classList.remove('warning');
+        }
         clone.description = value;
       }
       if (name == 'keywords') {
+        var words = value.match(/.*?,/g).length;
+        if (words <= 9) {
+          e.target.classList.add('warning');
+        } else {
+          e.target.classList.remove('warning');
+        }
+        this.setState({ keywordsNb: words });
         clone.keywords = value;
       }
       if (name == 'arguments') {
@@ -60976,8 +61000,34 @@ var Service = function (_Component) {
       this.setState({ currentService: clone });
     }
   }, {
+    key: 'inputValidator',
+    value: function inputValidator(value, request, msg) {
+      if (value < request) {
+        return 'warning';
+      }
+    }
+  }, {
     key: 'handleSubmit',
-    value: function handleSubmit() {}
+    value: function handleSubmit(e) {
+      e.preventDefault();
+      axios.put('/api/servicecontents/' + this.state.currentService.id, {
+        id: this.state.currentService.id,
+        name: this.state.currentService.name,
+        slug: this.state.currentService.slug,
+        thumbnail: this.state.currentService.thumbnail,
+        illustration: this.state.currentService.illustration,
+        keywords: this.state.currentService.keywords,
+        description: this.state.currentService.description,
+        arguments: this.state.currentService.arguments,
+        content: this.state.currentService.content
+      }).then(function (response) {
+        alert("service content updated");
+        console.log(response.data);
+      }).catch(function (error) {
+        alert("error");
+        console.log(error);
+      });
+    }
   }, {
     key: 'render',
     value: function render() {
@@ -61006,10 +61056,11 @@ var Service = function (_Component) {
           { className: '', id: 'service-form' },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'form',
-            { action: '' },
+            { id: 'service-form', action: '' },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'div',
               { className: 'row' },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'hidden', name: 'id', value: this.state.currentService.id }),
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'label',
                 { htmlFor: '' },
@@ -61051,11 +61102,17 @@ var Service = function (_Component) {
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'label',
                 { htmlFor: '' },
-                'mots cl\xE9s'
+                'mots cl\xE9s (minimum 10 mots cl\xE9)'
               ),
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { className: 'u-full-width', type: 'text', name: 'keywords', value: this.state.currentService.keywords, ref: function ref(keywords) {
                   return _this3.keywords = keywords;
                 }, onChange: this.handleInput.bind(this) }),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'span',
+                { className: 'help-block' },
+                'nombre de mots : ',
+                this.state.keywordsNb
+              ),
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'label',
                 { htmlFor: 'thumbnail' },
@@ -61074,7 +61131,9 @@ var Service = function (_Component) {
                     ' Choose'
                   )
                 ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { id: 'thumbnail', className: 'form-control u-full-width', type: 'text', name: 'filepath', value: this.state.currentService.thumbnail })
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { id: 'thumbnail', className: 'form-control u-full-width', type: 'text', name: 'filepath', value: this.state.currentService.thumbnail, ref: function ref(thumbnail) {
+                    return _this3.thumbnail = thumbnail;
+                  }, onChange: this.handleInput.bind(this) })
               ),
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { id: 'holder', src: this.state.currentService.thumbnail })
             ),

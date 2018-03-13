@@ -72,7 +72,27 @@ class ContentsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $name = $request['name'];
+        $slug = $request['slug'];
+        $thumbnail = $request['thumbnail'];
+        $illustration = $request['illustration'];
+        $keywords = $request['keywords'];
+        $description = $request['description'];
+        $arguments = $request['arguments'];
+        $content = $request['content'];
+
+        Servicecontents::where('id', $id)->update([
+            'name' => $name,
+            'slug' => str_slug($slug, '-'),
+            'illustration' => $illustration,
+            'thumbnail' => $thumbnail,
+            'keywords' => $keywords,
+            'description' => $description,
+            'arguments' => $arguments,
+            'content' => $content
+        ]);
+        return response('service content updated', 200);
+
     }
 
     /**

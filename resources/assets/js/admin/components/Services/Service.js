@@ -5,7 +5,7 @@ export default class Service extends Component {
   constructor(props){
     super(props);
     this.state = {
-      languages: [], service: [], currentService: {}, currentLanguage: 'fr'
+      keywordsNb: 0, languages: [], service: [], currentService: {}, currentLanguage: 'fr'
     }
   }
   componentDidMount(){
@@ -20,6 +20,8 @@ export default class Service extends Component {
     {
       this.setState({service: response.data});
       this.setCurrentLanguage(this.state.currentLanguage);
+      let wordsNb = this.state.currentService.keywords.match(/.*?,/g).length;
+      this.setState({keywordsNb: wordsNb});
     }).catch((error) =>
     {
       console.log(error);
@@ -79,15 +81,37 @@ export default class Service extends Component {
     let value = e.target.value;
     let clone = this.state.currentService;
     if(name == 'name'){
+      if(value.length < 3){
+        e.target.classList.add('warning');
+      }else{
+        e.target.classList.remove('warning');
+      }
       clone.name = value;
     }
     if(name == 'filepath'){
+      if(value.length < 3){
+        e.target.classList.add('warning');
+      }else{
+        e.target.classList.remove('warning');
+      }
       clone.thumbnail = value;
     }
     if(name == 'description'){
+      if(value.length < 150){
+        e.target.classList.add('warning');
+      }else{
+        e.target.classList.remove('warning');
+      }
       clone.description = value;
     }
     if(name == 'keywords'){
+      var words = value.match(/.*?,/g).length;
+      if(words <= 9){
+        e.target.classList.add('warning');
+      }else{
+        e.target.classList.remove('warning');
+      }
+      this.setState({keywordsNb: words});
       clone.keywords = value;
     }
     if(name == 'arguments'){
@@ -100,7 +124,36 @@ export default class Service extends Component {
     this.setState({currentService: clone});
 
   }
-  handleSubmit(){
+  inputValidator(value, request, msg)
+  {
+    if(value < request){
+      return 'warning';
+    }
+  }
+  handleSubmit(e)
+  {
+    e.preventDefault();
+    axios.put('/api/servicecontents/' + this.state.currentService.id,
+      {
+        id: this.state.currentService.id,
+        name: this.state.currentService.name,
+        slug: this.state.currentService.slug,
+        thumbnail: this.state.currentService.thumbnail,
+        illustration: this.state.currentService.illustration,
+        keywords: this.state.currentService.keywords,
+        description: this.state.currentService.description,
+        arguments: this.state.currentService.arguments,
+        content: this.state.currentService.content,
+      }
+    ).then((response) =>
+    {
+      alert("service content updated");
+      console.log(response.data);
+    }).catch((error) =>
+    {
+      alert("error");
+      console.log(error);
+    });
   }
 
   render() {
@@ -113,10 +166,11 @@ export default class Service extends Component {
           {this.ListLanguages()}
         </select>
         <div className="" id="service-form">
-          <form action="">
+          <form id="service-form" action="">
             <div className="row">
+              <input type="hidden" name="id" value={this.state.currentService.id} />
               <label htmlFor="">nom du service</label>
-              <input className="u-full-width" type="text" name="name" value={this.state.currentService.name} ref={(name) => this.name = name} onChange={this.handleInput.bind(this)}/>
+              <input className={'u-full-width'} type="text" name="name" value={this.state.currentService.name} ref={(name) => this.name = name} onChange={this.handleInput.bind(this)}/>
               <label htmlFor="">slug</label>
               <input className="u-full-width" type="text" value={this.state.currentService.slug}/>
               <label htmlFor="">description</label>
@@ -125,8 +179,11 @@ export default class Service extends Component {
               <textarea className="u-full-width" name="content" id="" cols="30" rows="10" value={this.state.currentService.content} ref={(content) => this.content = content} onChange={this.handleInput.bind(this)}></textarea>
               <label htmlFor="">arguments</label>
               <textarea className="u-full-width" name="argments" id="" cols="30" rows="10" value={this.state.currentService.arguments} ref={(argments) => this.argments = argments} onChange={this.handleInput.bind(this)}></textarea>
-              <label htmlFor="">mots clés</label>
+              <label htmlFor="">mots clés (minimum 10 mots clé)</label>
               <input className="u-full-width" type="text" name="keywords" value={this.state.currentService.keywords} ref={(keywords) => this.keywords = keywords} onChange={this.handleInput.bind(this)} />
+              <span className="help-block">
+                nombre de mots : {this.state.keywordsNb}
+              </span>
               <label htmlFor="thumbnail">image</label>
               <div className="input-group">
                 <span className="input-group-btn">
@@ -134,11 +191,11 @@ export default class Service extends Component {
                     <i className="fa fa-picture-o"></i> Choose
                   </a>
                 </span>
-                <input id="thumbnail" className="form-control u-full-width" type="text" name="filepath" value={this.state.currentService.thumbnail} />
+                <input id="thumbnail" className="form-control u-full-width" type="text" name="filepath" value={this.state.currentService.thumbnail} ref={(thumbnail) => this.thumbnail = thumbnail} onChange={this.handleInput.bind(this)} />
               </div>
               <img id="holder" src={this.state.currentService.thumbnail} />
             </div>
-            <button onClick={this.handleSubmit.bind(this)}>Mettre à jour</button>
+            <button onClick={this.handleSubmit.bind(this)} >Mettre à jour</button>
           </form>
         </div>
       </div>

@@ -16,4 +16,19 @@ body {
   margin: 10%;
   text-align: center; }
 
+input.warning {
+  color: red; }
+
+input.warning:focus {
+  color: red;
+  border: 1px solid red !important; }
+
+#service-form #holder {
+  max-width: 200px;
+  max-height: 200px;
+  background-color: dimgrey; }
+  #service-form #holder img {
+    width: 100%;
+    height: auto; }
+
 /*# sourceMappingURL=console.css.map */
