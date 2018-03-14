@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import {GetCurrentLang} from '../Logic/LanguageManager';
 import ServicesLinks from './Services/ServicesLinks';
 import Arguments from './Arguments/Arguments';
+import ClientList from './Clients/ClientsList';
+import Story from './Story/Story';
 export default class Welcome extends Component {
   constructor(props){
     super(props);
@@ -14,7 +16,6 @@ export default class Welcome extends Component {
   }
   componentDidMount()
   {
-
     document.getElementById('loader').classList.add('loading');
     let lang = window.navigator.language;
     let langAbrev = lang.split('-');
@@ -42,6 +43,8 @@ export default class Welcome extends Component {
         <ServicesLinks display={"full"} lang={this.state.currentLang} hiddenHimself={false} />
         <Arguments lang={this.state.currentLang} />
         <ServicesLinks display={"mini"} lang={this.state.currentLang} hiddenHimself={false} />
+        <ClientList  lang={this.state.currentLang} />
+        <Story lang={this.state.currentLang} />
       </div>
 
     );

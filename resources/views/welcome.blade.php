@@ -32,7 +32,7 @@
             @endif
         </div>
     -->
-        <div id="loader"></div>
+        <div id="loader" class="active"></div>
         <div id="application"></div>
         <script src="{{ asset('app/assets/js/app.js') }}"></script>
 

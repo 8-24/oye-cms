@@ -17,5 +17,9 @@ class DatabaseSeeder extends Seeder
         $this->call(HomeSeeder::class);
         $this->call(ArgumentSeeder::class);
         $this->call(ArgumentContentSeeder::class);
+        $this->call(ClientSeeder::class);
+        $this->call(ClientContentsSeeder::class);
+        $this->call(ClientWwrapperSeeder::class);
+        $this->call(StorySeeder::class);
     }
 }

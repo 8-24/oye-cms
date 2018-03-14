@@ -70,9 +70,34 @@ body {
 
 #loader {
   display: none;
+  opacity: 0;
+  -webkit-animation-delay: 1s;
+          animation-delay: 1s;
+  -webkit-animation: loaderDisappear 500ms;
+          animation: loaderDisappear 500ms;
 }
 
-#loader.loading {
+@-webkit-keyframes loaderDisappear {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes loaderDisappear {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+#loader.active {
   display: block;
   position: fixed;
   left: 0px;

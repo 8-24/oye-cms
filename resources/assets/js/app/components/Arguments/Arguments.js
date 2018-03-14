@@ -44,12 +44,10 @@ export default class Arguments extends Component {
         return contents;
     });
     return args;
-
   }
-
   render() {
     return (
-      <div  className="container">
+      <div className="container">
         <div id="arguments-list">
           {this.ListArguments()}
         </div>

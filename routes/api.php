@@ -23,3 +23,5 @@ Route::apiResources(["servicecontents" => 'API\Services\ContentsController']);
 Route::get('/services/lang/{lang}' ,  'API\Services\ServicesController@IndexPerLang');
 Route::apiResources(["arguments" => 'API\Arguments\ArgumentsController']);
 Route::apiResources(["argumentcontents" => 'API\Arguments\ContentsController']);
+Route::apiResources(["clients" => 'API\Clients\ClientsController']);
+Route::apiResources(["story" => 'API\Story\StoryController']);
